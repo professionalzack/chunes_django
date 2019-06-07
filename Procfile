@@ -1,1 +1,1 @@
-web: gunicorn <project_folder_name>.wsgi
+web: gunicorn chunes_django.wsgi
