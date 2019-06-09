@@ -7,7 +7,6 @@ from django.utils.timezone import now
 # Create your models here.
 class Tag(models.Model):
   content = models.TextField()
-  color_code = models.CharField(max_length=100)
 
   def __str__(self):
     return self.content
@@ -16,8 +15,8 @@ class Tune(models.Model):
   title = models.CharField(max_length=100)
   time_signature = models.CharField(max_length=100, default='4/4')
   default_note_length = models.CharField(max_length=100, default='1/8')
-  tune_type = models.CharField(max_length=100)
-  key_signature = models.CharField(max_length=100)
+  tune_type = models.CharField(max_length=100, null=True, blank=True)
+  key_signature = models.CharField(max_length=100, default='C')
   additional_info = models.TextField(null=True, blank=True)
   melody_line = models.TextField(null=True, blank=True)
   

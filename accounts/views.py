@@ -59,6 +59,8 @@ def register(request):
 
 @csrf_exempt
 def login(request):
+  data = json.loads(request.body)
+  print('data:', data)
   print(request.user)
   print(request)
   response = {}
@@ -88,16 +90,12 @@ def login(request):
   return JsonResponse(response)
 
 @csrf_exempt
-def current_user(request):
-  print(request)
-  print(request.body)
-  print('c_c', request.user)
-  # print(user)
-  # profile = Profile.objects.filter(user=request.user).values().first()
-  return JsonResponse({'message': "mo"})
+def profile(request, pk):
+  profile = Profile.objects.filter(user_id=pk).values().first()
+  return JsonResponse({'profile':profile})
 
 @csrf_exempt 
 def logout(request):
-    auth.logout(request)
-    return JsonResponse({'message':'logged out'})
+  auth.logout(request)
+  return JsonResponse({'message':'logged out'})
 

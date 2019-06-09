@@ -13,9 +13,13 @@ from .models import Tag, Tune, Library, Post, Comment
 #   if request.method == 'POST':
 
 def tunes(request):
-  print('user user', request.user)
+  print('hey')
+  # req = json.loads(request.body.decode('utf-8'))
+  # print(req)
+  # print('user user', request.user)
   if request.user.is_authenticated:
     tunes = Tune.objects.all().values()
+    print(tunes)
     return JsonResponse({"tunes": list(tunes)}, safe=False)
   else:
     return JsonResponse({'status': 401, 'message': 'Not authorized'}, status=401)
