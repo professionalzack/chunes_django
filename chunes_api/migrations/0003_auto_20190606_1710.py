@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('chunes_djapi', '0002_auto_20190606_0738'),
+        ('chunes_api', '0002_auto_20190606_0738'),
     ]
 
     operations = [

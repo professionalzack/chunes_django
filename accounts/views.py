@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import Profile
-from chunes_djapi.models import Library
+from chunes_api.models import Library
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -60,6 +60,7 @@ def register(request):
 @csrf_exempt
 def login(request):
   print(request.user)
+  print(request)
   response = {}
   if request.method == 'POST':
     post_req = json.loads(request.body.decode('utf-8'))
@@ -86,12 +87,17 @@ def login(request):
   # return HttpResponse(json.dumps(response), content_type="application/json")
   return JsonResponse(response)
 
+@csrf_exempt
 def current_user(request):
-  profile = Profile.objects.filter(user=request.user).values().first()
-  return JsonResponse(profile)
+  print(request)
+  print(request.body)
+  print('c_c', request.user)
+  # print(user)
+  # profile = Profile.objects.filter(user=request.user).values().first()
+  return JsonResponse({'message': "mo"})
 
+@csrf_exempt 
 def logout(request):
     auth.logout(request)
-  # return HttpResponse(json.dumps({message:'logged out'}), content_type="application/json")
-    return JsonResponse({message:'logged out'})
+    return JsonResponse({'message':'logged out'})
 

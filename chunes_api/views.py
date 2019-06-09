@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render
+import json
 from django.http import JsonResponse
 from .models import Tag, Tune, Library, Post, Comment
 
@@ -11,8 +13,14 @@ from .models import Tag, Tune, Library, Post, Comment
 #   if request.method == 'POST':
 
 def tunes(request):
-  tunes = Tune.objects.all().values()
-  return JsonResponse({"tunes": list(tunes)}, safe=False)
+  print('user user', request.user)
+  if request.user.is_authenticated:
+    tunes = Tune.objects.all().values()
+    return JsonResponse({"tunes": list(tunes)}, safe=False)
+  else:
+    return JsonResponse({'status': 401, 'message': 'Not authorized'}, status=401)
+  # tunes = Tune.objects.all().values()
+  # return JsonResponse({"tunes": list(tunes)}, safe=False)
 
 def tune_show(request, pk):
   tune = Tune.objects.filter(pk=pk).values().first()

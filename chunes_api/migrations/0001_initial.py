@@ -33,9 +33,9 @@ class Migration(migrations.Migration):
                 ('key_signature', models.CharField(max_length=100)),
                 ('additional_info', models.TextField(blank=True, null=True)),
                 ('is_public', models.BooleanField(default=False)),
-                ('fork_off', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='forks', to='chunes_djapi.Tune')),
+                ('fork_off', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='forks', to='chunes_api.Tune')),
                 ('poster', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='tunes', to='accounts.Profile')),
-                ('tags', models.ManyToManyField(blank=True, null=True, to='chunes_djapi.Tag')),
+                ('tags', models.ManyToManyField(blank=True, null=True, to='chunes_api.Tag')),
             ],
         ),
         migrations.CreateModel(
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                 ('media', models.CharField(blank=True, max_length=255, null=True)),
                 ('time_stamp', models.DateTimeField(default=django.utils.timezone.now)),
                 ('poster', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='posts', to='accounts.Profile')),
-                ('tune', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='posts', to='chunes_djapi.Tune')),
+                ('tune', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='posts', to='chunes_api.Tune')),
             ],
         ),
         migrations.CreateModel(
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('profile', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='library', to='accounts.Profile')),
-                ('tunes', models.ManyToManyField(blank=True, related_name='library', to='chunes_djapi.Tune')),
+                ('tunes', models.ManyToManyField(blank=True, related_name='library', to='chunes_api.Tune')),
             ],
         ),
         migrations.CreateModel(
@@ -63,8 +63,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('content', models.TextField()),
                 ('time_stamp', models.DateTimeField(default=django.utils.timezone.now)),
-                ('comment', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='chunes_djapi.Comment')),
-                ('post', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='chunes_djapi.Post')),
+                ('comment', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='chunes_api.Comment')),
+                ('post', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='chunes_api.Post')),
                 ('poster', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='accounts.Profile')),
             ],
         ),

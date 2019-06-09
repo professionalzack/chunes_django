@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('chunes_djapi', '0001_initial'),
+        ('chunes_api', '0001_initial'),
     ]
 
     operations = [
@@ -18,6 +18,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='tune',
             name='tags',
-            field=models.ManyToManyField(blank=True, to='chunes_djapi.Tag'),
+            field=models.ManyToManyField(blank=True, to='chunes_api.Tag'),
         ),
     ]
