@@ -27,6 +27,10 @@
   {"model": "chunes_api.library", "pk": 1, "fields": {"profile": 25, "tunes": [1,3,4]}},
   {"model": "chunes_api.library", "pk": 2, "fields": {"profile": 28, "tunes": [5]}},
   {"model": "chunes_api.library", "pk": 3, "fields": {"profile": 11, "tunes": [2]}},
-  {"model": "chunes_api.post", "pk": 1, "fields": {"poster":11, "tune":2, "content": "just like the tune", "media":null, "time_stamp" :"2019-05-21T01:00:00+03:00"}}
+  {"model": "chunes_api.post", "pk": 1, "fields": {"poster":11, "tune":2, "content": "just like the tune", "media":null, "time_stamp" :"2019-05-21T01:00:00+03:00"}},
+  {"model": "chunes_api.post", "pk": 2, "fields": {"poster":28, "tune":5, "content": "learned this from my grandpapa", "media":null, "time_stamp" :"2019-05-21T01:00:00+03:00"}},
+  {"model": "chunes_api.post", "pk": 3, "fields": {"poster":25, "tune":3, "content": "just some flavor text", "media":null, "time_stamp" :"2019-05-21T01:00:00+03:00"}},
+  {"model": "chunes_api.post", "pk": 4, "fields": {"poster":25, "tune":4, "content": "who do you know", "media":null, "time_stamp" :"2019-05-21T01:00:00+03:00"}},
+  {"model": "chunes_api.post", "pk": 5, "fields": {"poster":25, "tune":1, "content": "just like the tune", "media":null, "time_stamp" :"2019-05-21T01:00:00+03:00"}}
 
 ]

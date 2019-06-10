@@ -1,9 +1,10 @@
 from django.shortcuts import render
+from django.core import serializers
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import Profile
-from chunes_api.models import Library
+from chunes_api.models import Library, Tune
 from django.views.decorators.csrf import csrf_exempt
 import json
 
@@ -57,7 +58,7 @@ def register(request):
   # return HttpResponse(json.dumps(response), content_type="application/json")
   return JsonResponse(response)
 
-@csrf_exempt
+# @csrf_exempt
 def login(request):
   data = json.loads(request.body)
   print('data:', data)
@@ -76,7 +77,13 @@ def login(request):
     if user is not None:
       auth.login(request, user)
       response['status'] = 200
-      response['user'] = {'id': user.id, 'username': user.username}
+      response['profile'] = Profile.objects.filter(user_id=user.id).values().first()
+      response['profile'].update(User.objects.filter(id=user.id).values('first_name', 'date_joined', 'last_login', 'last_name', 'username').first())
+      response['profile']['library'] = list(Tune.objects.filter(poster_id=user.profile).values())
+      # response['tunes'] = serializers.serialize('json', Tune.objects.filter(poster_id=user.profile))
+
+      # response['user'] = User.objects.filter(id=user.id).values(first_name, date_joined, last_login, last_name, profile, username).first()
+      # response['user'] = {'id': user.id, 'username': user.first_name}
       print(response)
       print('okay', request.user.id)
     else:
@@ -89,13 +96,35 @@ def login(request):
   # return HttpResponse(json.dumps(response), content_type="application/json")
   return JsonResponse(response)
 
-@csrf_exempt
 def profile(request, pk):
   profile = Profile.objects.filter(user_id=pk).values().first()
   return JsonResponse({'profile':profile})
 
-@csrf_exempt 
+# @csrf_exempt
+def user(request):
+  user = request.user
+  if user.is_authenticated:
+    response = {'status':200}
+    response['profile'] = Profile.objects.filter(user_id=user.id).values().first()
+    response['profile'].update(User.objects.filter(id=user.id).values('first_name', 'date_joined', 'last_login', 'last_name', 'username').first())
+    response['profile']['library'] = list(Tune.objects.filter(poster_id=user.profile).values())
+    return JsonResponse(response)
+  else:
+    return JsonResponse({'status': 401, 'message': 'Not authorized'}, status=401)
+
+
+
+  print('hold me', request.user)
+  profile = Profile.objects.filter(user_id=request.user.id).values().first()
+  try:
+    profile['username'] = request.user.first_name
+  except:
+    pass
+  return JsonResponse({'whatever':'forever', 'profile':profile})
+
+# @csrf_exempt
 def logout(request):
+  print('goout?', request.user)
   auth.logout(request)
   return JsonResponse({'message':'logged out'})
 
