@@ -79,6 +79,7 @@ def login(request):
       response['status'] = 200
       response['profile'] = Profile.objects.filter(user_id=user.id).values().first()
       response['profile'].update(User.objects.filter(id=user.id).values('first_name', 'date_joined', 'last_login', 'last_name', 'username').first())
+      # response['profile']['library'] = list(Library.objects.get(profile_id=user.profile).tunes.values())
       response['profile']['library'] = list(Tune.objects.filter(poster_id=user.profile).values())
       # response['tunes'] = serializers.serialize('json', Tune.objects.filter(poster_id=user.profile))
 

@@ -25,6 +25,9 @@ class Tune(models.Model):
   tags = models.ManyToManyField(Tag, blank=True)
   is_public = models.BooleanField(default=False)
 
+  def __str__(self):
+    return self.title
+
 class Library(models.Model):
   profile = models.OneToOneField(Profile, on_delete=models.CASCADE, related_name='library')
   tunes = models.ManyToManyField(Tune, blank=True, related_name='library')
