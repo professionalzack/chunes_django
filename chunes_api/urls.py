@@ -8,6 +8,6 @@ urlpatterns = [
     path('tunes/delete/<int:pk>', views.tune_delete, name='tune_delete'),
     path('tunes/<int:pk>', views.tune_show, name='tune_show'),
     path('tunes/new/', views.tune_create, name='tune_create'),
-    path('post/<int:pk>', views.post_show, name='post_show'),
+    path('posts/<int:pk>', views.post_show, name='post_show'),
     path('library/', views.library, name='library'),
 ]

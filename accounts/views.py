@@ -62,8 +62,8 @@ def register(request):
 def login(request):
   data = json.loads(request.body)
   print('data:', data)
-  print(request.user)
-  print(request)
+  print('repint questo fro user',request.user)
+  print('reqq;',request)
   response = {}
   if request.method == 'POST':
     post_req = json.loads(request.body.decode('utf-8'))
@@ -85,7 +85,8 @@ def login(request):
 
       # response['user'] = User.objects.filter(id=user.id).values(first_name, date_joined, last_login, last_name, profile, username).first()
       # response['user'] = {'id': user.id, 'username': user.first_name}
-      print(response)
+      # print(response)
+      print('tunies:', [t['title'] for t in response['profile']['library']])
       print('okay', request.user.id)
     else:
       response['status'] = 500
@@ -108,7 +109,7 @@ def user(request):
     response = {'status':200}
     response['profile'] = Profile.objects.filter(user_id=user.id).values().first()
     response['profile'].update(User.objects.filter(id=user.id).values('first_name', 'date_joined', 'last_login', 'last_name', 'username').first())
-    response['profile']['library'] = list(Tune.objects.filter(poster_id=user.profile).values())
+    response['profile']['library'] = list(user.profile.library.tunes.values())
     return JsonResponse(response)
   else:
     return JsonResponse({'status': 401, 'message': 'Not authorized'}, status=401)
